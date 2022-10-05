@@ -77,7 +77,7 @@
 ;;
 
 ;; Add highlight-thing mode to all programming modes
-  (add-hook 'prog-mode-hook #'highlight-thing-mode)
+(add-hook 'prog-mode-hook #'highlight-thing-mode)
 
 
 ;; Associate .tsx files with typescript
@@ -102,3 +102,24 @@
 
 ;; Use svelte mode
 (add-to-list 'auto-mode-alist '("\\.svelte\\'" . svelte-mode))
+
+;; Hide title in org mode
+(setq org-hidden-keywords '(title))
+
+(setq org-bullets-bullet-list '("\u200b"))
+(setq org-indent-mode nil)
+(setq org-indent-indentation-per-level 0)
+(setq org-hide-emphasis-markers t)
+
+;; Automatically continue lists in org mode
+(add-hook 'org-mode-hook (lambda () (org-autolist-mode)))
+
+;; Automatically apply theme based on system appearance
+(defun rs/apply-theme (appearance)
+  "Load theme, taking current system APPEARANCE into consideration."
+  (mapc #'disable-theme custom-enabled-themes)
+  (pcase appearance
+    ('light (load-theme 'rs-light t))
+    ('dark (load-theme 'rs-dark t))))
+
+(add-hook 'ns-system-appearance-change-functions #'rs/apply-theme)
