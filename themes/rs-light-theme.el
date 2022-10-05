@@ -173,6 +173,36 @@
    (swiper-match-face-3 :background (doom-blend blue bg 0.2) :foreground blue :weight 'semibold)
    (swiper-match-face-4 :background (doom-blend blue bg 0.2) :foreground blue :weight 'semibold)
 
+
+   ;; org-mode
+   (org-warning :weight 'normal :foreground red)
+   (org-agenda-date :weight 'normal :foreground fg :height 1.3 :background nil)
+   (org-agenda-date-today :weight 'semi-bold :foreground fg :height 1.3)
+   (org-agenda-date-weekend :weight 'normal :foreground green :height 1.15 :background nil)
+   (org-super-agenda-header  :weight 'normal :foreground cyan :height 1.0 :background nil)
+   (org-default :height 0.7 :foreground fg )
+   (org-document-title :weight 'bold :height 1.6 :foreground fg )
+
+   (org-level-1 :height 1.4 :foreground fg )
+   (org-level-2 :height 1.3 :foreground fg )
+   (org-level-3 :height 1.2 :foreground fg )
+   (org-level-4 :height 1.1 :foreground fg )
+   (org-level-5 :height 1.0 :foreground fg )
+   (org-level-6 :height 1.0 :foreground fg )
+   (org-level-7 :height 0.8 :foreground fg )
+   (org-level-8 :height 0.8 :foreground fg )
+   (org-list :height 0.8 :foreground fg )
+   (org-todo :height 1.0 :foreground fg)
+   (org-bullets :height 0.8 :foreground fg )
+   (org-list-dt :height 1.0 :foreground "#45b9ef" )
+   (org-num-default-format :height 1.0 :foreground "#45b9ef" )
+   (org-block :height 0.8 :foreground fg)
+   (org-table :height 0.9 :foreground fg)
+   (org-block-begin-line :height 0.8 :foreground fg )
+   (org-block-end-line :height 0.8 :foreground fg )
+   (org-quote :height 0.9 :background nil :foreground nil :slant 'italic)
+   (org-link :height 0.9 :background nil :foreground "#111111"  :underline t)
+
    )
 
   )
