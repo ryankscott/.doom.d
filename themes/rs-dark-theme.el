@@ -167,9 +167,6 @@ Can be an integer to determine the exact padding."
    (org-list-dt :foreground magenta)
 
 
-   (lsp-headerline-breadcrumb-path-face :foreground base6 :background (doom-darken bg 0.05))
-   (lsp-headerline-breadcrumb-path-hint-face :foreground base6 :background nil)
-   (lsp-headerline-breadcrumb-symbols-face :foreground blue :background nil)
 
 
    (wgrep-face :background base1)
@@ -184,12 +181,16 @@ Can be an integer to determine the exact padding."
 
 
    ;; lsp
+   (lsp-headerline-breadcrumb-path-face :foreground base6 :background (doom-darken bg 0.05))
+   (lsp-headerline-breadcrumb-path-hint-face :foreground base6 :background nil)
+   (lsp-headerline-breadcrumb-symbols-face :foreground blue :background nil)
    (lsp-ui-doc-background    :background (doom-darken bg 0.07))
    (lsp-face-highlight-read  :background nil :foreground: nil)
    (lsp-face-highlight-write :background nil :foreground: nil)
+   (lsp-face-highlight-textual :foreground nil :background (doom-blend fg bg 0.1) :weight 'semi-bold)
 
 
-   (popup-tip-face :foreground fg)
+   (popup-tip-face :foreground fg :background (doom-lighten bg 0.05))
 
    ;; hl
    (hl-line :foreground nil :background nil)
@@ -233,12 +234,16 @@ Can be an integer to determine the exact padding."
    (org-bullets :height 0.8 :foreground fg )
    (org-list-dt :height 1.0 :foreground "#45b9ef" )
    (org-num-default-format :height 1.0 :foreground "#45b9ef" )
-   (org-block :height 0.8 :foreground fg)
    (org-table :height 0.9 :foreground fg)
-   (org-block-begin-line :height 0.8 :foreground fg )
-   (org-block-end-line :height 0.8 :foreground fg )
+   (org-block-begin-line :height 1.0 :foreground fg :box '(:line-width 2 :color "foreground" :style flat))
+   (org-block-end-line :height 1.0 :foreground fg :box '(:line-width 2 :color "foreground" :style flat))
+   (org-code :extend t :height 1.0 :foreground fg :background base0 :box '(:line-width 2 :color "base0" :style flat))
+   (org-block :height 1.0 :foreground fg :background base0)
+   (org-meta-line :height 1.0 :foreground fg)
    (org-quote :height 0.9 :background nil :foreground nil :slant 'italic)
    (org-link :height 0.9 :background nil :foreground "#111111"  :underline t)
+
+
 
    )
 
