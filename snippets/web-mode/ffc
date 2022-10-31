@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: Function component
+# key: ffc
+# condition: t
+# --
+
+function $1($2) {
+  return ( $0 );
+}
+export default $1;

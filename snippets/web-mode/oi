@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: Iterate over object
+# key: oi
+# condition: t
+# --
+
+Object.keys($1).map(key => {
+  console.log($1[key])
+})

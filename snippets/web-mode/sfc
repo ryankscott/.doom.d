@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: Stateless function component
+# key: sfc
+# condition: t
+# --
+const $1 = ($2) => {
+  return ( $0 );
+}
+export default $1;
