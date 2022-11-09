@@ -21,7 +21,8 @@
 ;; See 'C-h v doom-font' for documentation and more examples of what they
 ;; accept. For example:
 ;;
-(setq doom-font (font-spec :family "Roboto Mono" :size 12 :weight 'semi-light)
+(setq doom-font (font-spec :family "Roboto Mono" :size 12 :weight 'normal)
+      doom-big-font (font-spec :family "Roboto Mono" :size 14 :weight 'normal)
       doom-variable-pitch-font (font-spec :family "Roboto Mono" :size 12))
 ;;
 ;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
@@ -81,14 +82,32 @@
 
 
 ;; Associate .tsx files with typescript
-(add-to-list 'auto-mode-alist '("\\.tsx\\'" . typescript-mode))
+(add-to-list 'auto-mode-alist '("\\.tsx\\'" . typescript-tsx-mode))
+(setq typescript-indent-level 2)
 
 ;; Maximize on start
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
 
+
+;; Transpose window
+(defun rs-window-split-transpose ()
+  "Toggle between horizontal and vertical split with two windows."
+  (interactive)
+  (if (> (length (window-list)) 2)
+      (error "Can't toggle with more than 2 windows!")
+    (let ((func (if (window-full-height-p)
+                    #'split-window-vertically
+                  #'split-window-horizontally)))
+      (delete-other-windows)
+      (funcall func)
+      (save-selected-window
+        (other-window 1)
+        (switch-to-buffer (other-buffer))))))
+
 ;; Custom keybindings
 (map! :leader
       :desc "Flycheck errors"       "f l"    #'flycheck-list-errors
+      :desc "Transpose windows"     "w z"    #'rs-window-split-transpose
       )
 
 ;; Show avatars in magit
@@ -97,14 +116,11 @@
 ;; Set auth source for forge
 (setq auth-sources '("~/.authinfo"))
 
-;; Enable breadcrumbs
-(setq lsp-headerline-breadcrumb-enable 'true)
-
 ;; Use svelte mode
 (add-to-list 'auto-mode-alist '("\\.svelte\\'" . svelte-mode))
 
 ;; Hide title in org mode
-(setq org-hidden-keywords '(title))
+(setq org-hidden-keywords '(title begin_src end_src results))
 
 (setq org-bullets-bullet-list '("\u200b"))
 (setq org-indent-mode nil)
@@ -123,3 +139,39 @@
     ('dark (load-theme 'rs-dark t))))
 
 (add-hook 'ns-system-appearance-change-functions #'rs/apply-theme)
+
+;; Format on save
+(add-hook 'before-save-hook #'+format/buffer nil t)
+
+;; Don't use LSP formatter for TSX
+(setq-hook! 'typescript-tsx-mode-hook +format-with-lsp nil)
+
+;; Don't show inline errors
+(setq lsp-ui-sideline-show-diagnostics nil)
+
+;; Add margins
+(add-hook! '+popup-buffer-mode-hook
+  (set-window-margins (selected-window) 1 1))
+
+;; Magit - Protect against accidental pushes to upstream
+(define-advice magit-push-current-to-upstream (:before (args) query-yes-or-no)
+  "Prompt for confirmation before permitting a push to upstream."
+  (when-let ((branch (magit-get-current-branch)))
+    (unless (yes-or-no-p (format "Push %s branch upstream to %s? "
+                                 branch
+                                 (or (magit-get-upstream-branch branch)
+                                     (magit-get "branch" branch "remote"))))
+      (user-error "Push to upstream aborted by user"))))
+
+;; Make indent guides invisible
+(setq highlight-indent-guides-auto-character-face-perc 0)
+
+;; Dash integration
+(set-docsets! 'Typescript-TSX-mode "TypeScript" "React")
+(setq +lookup-open-url-fn #'eww)
+
+;; Fancy splash screen
+(setq fancy-splash-image "/Users/ryan/.doom.d/svg/doom_emacs.svg")
+
+;; Hack to maybe make JS modes faster
+(advice-add #'add-node-modules-path :override #'ignore)

@@ -241,10 +241,7 @@ Can be an integer to determine the exact padding."
    (org-block :height 1.0 :foreground fg :background base0)
    (org-meta-line :height 1.0 :foreground fg)
    (org-quote :height 0.9 :background nil :foreground nil :slant 'italic)
-   (org-link :height 0.9 :background nil :foreground "#111111"  :underline t)
-
-
-
+   (org-link :height 0.9 :background nil :foreground fg :underline t)
    )
 
   )
