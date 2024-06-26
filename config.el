@@ -171,7 +171,7 @@
 (setq +lookup-open-url-fn #'eww)
 
 ;; Fancy splash screen
-(setq fancy-splash-image "/Users/ryan/.doom.d/svg/doom_emacs.svg")
+(setq fancy-splash-image "/Users/ryan/.doom.d/images/emacs.svg")
 
 ;; Hack to maybe make JS modes faster
 (advice-add #'add-node-modules-path :override #'ignore)
